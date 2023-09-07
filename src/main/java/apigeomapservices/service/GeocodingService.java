@@ -7,6 +7,6 @@ import apigeomapservices.exceptions.GeocodingException;
 import java.util.List;
 
 public interface GeocodingService {
-    String geocode(GeocodingDTO geocodingDTO) throws GeocodingException;
+    String geocode(double latitude, double longitude) throws GeocodingException;
     List<GeocodingEntity> getGeocodingHistory();
 }

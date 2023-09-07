@@ -1,6 +1,5 @@
 package apigeomapservices.controller;
 
-import apigeomapservices.dto.GeocodingDTO;
 import apigeomapservices.entity.GeocodingEntity;
 import apigeomapservices.exceptions.GeocodingException;
 import apigeomapservices.service.GeocodingService;
@@ -15,10 +14,14 @@ public class GeocodingQueryController {
 
     private GeocodingService geocodingService;
 
+    public GeocodingQueryController(GeocodingService geocodingService) {
+        this.geocodingService = geocodingService;
+    }
+
     @PostMapping("/query")
-    public ResponseEntity<String> geocodeLocation(GeocodingDTO geocodingDTO) {
+    public ResponseEntity<String> geocodeLocation(@RequestParam double latitude, @RequestParam double longitude) {
         try {
-            String fullAddress = geocodingService.geocode(geocodingDTO);
+            String fullAddress = geocodingService.geocode(latitude, longitude);
             return ResponseEntity.ok(fullAddress);
         } catch (GeocodingException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
